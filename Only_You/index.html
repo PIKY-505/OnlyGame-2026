@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="src/assets/trails/apple-cat.gif" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Only You</title>
+    <style>
+      /* 1. Base para eliminar el flash blanco */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #050010; /* Tu color base oscuro */
+        overflow: hidden;
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+      }
+
+      /* 2. Contenedor de Pre-carga (Idéntico a tu LoadingScreen) */
+      #pre-loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 99999;
+        /* El fondo radial sutil de tu SCSS */
+        background: radial-gradient(circle at center, #1a0b2e 0%, #050010 70%);
+      }
+
+      /* 4. Subtítulo simple (mientras carga el JS) */
+      .loader-subtitle {
+        margin-top: 20px;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.4);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        animation: pulse 1.5s infinite;
+      }
+
+      @keyframes breath {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.9;
+        }
+        50% {
+          transform: scale(1.05);
+          opacity: 1;
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 0.3;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div id="pre-loader">
+        <div class="loader-subtitle">Iniciando...</div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

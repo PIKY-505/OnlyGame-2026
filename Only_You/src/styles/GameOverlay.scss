@@ -1,0 +1,76 @@
+.coin-entity {
+  /* Aseguramos que el brillo no se salga de la caja */
+  position: relative;
+  /* Importante: Para que el brillo respete la forma de la moneda */
+  border-radius: 15%; 
+}
+
+/* --- ESTILOS CUANDO ES SHINY --- */
+.coin-entity.is-shiny {
+  /* Opcional: Un borde dorado pulsante */
+  animation: border-pulse 2s infinite alternate;
+}
+
+/* El destello de luz (Barrido) */
+.shiny-glint {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 15%; /* Mismo borde que la imagen */
+  overflow: hidden;   /* Vital */
+  z-index: 21;        /* Por encima de la imagen */
+  pointer-events: none; /* Para poder hacer click a través de él */
+}
+
+/* La barra de luz que cruza */
+.shiny-glint::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 50%;
+  height: 200%;
+  
+  /* Degradado inclinado: Transparente -> Blanco Fuerte -> Transparente */
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  
+  /* Inclinación */
+  transform: rotate(30deg);
+  
+  /* Animación */
+  animation: shiny-swipe 3s infinite;
+}
+
+/* --- ANIMACIONES --- */
+
+/* El barrido de luz */
+@keyframes shiny-swipe {
+  0% {
+    left: -100%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  50%, 100% {
+    left: 200%; /* Se va muy lejos a la derecha */
+    opacity: 0;
+  }
+}
+
+/* El borde pulsante (Opcional) */
+@keyframes border-pulse {
+  from {
+    box-shadow: 0 0 5px #ffd700; /* Dorado suave */
+  }
+  to {
+    box-shadow: 0 0 15px #ff00de, 0 0 5px cyan; /* Dorado fuerte o arcoíris */
+  }
+}

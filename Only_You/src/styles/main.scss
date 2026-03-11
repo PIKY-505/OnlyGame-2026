@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap");
+
+:root {
+  --font-main: "Outfit", serif;
+  --bg-color: #fff2e6;
+  --accent-color: #ff99cc;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-main);
+  background-color: var(--bg-color);
+  overflow: hidden; /* Vital para efectos de pantalla completa */
+  width: 100vw;
+  height: 100vh;
+  user-select: none;
+}
+
+/* SISTEMA DE CAPAS */
+.layer-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.layer-game {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.layer-ui {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+
+  .interactive {
+    pointer-events: auto;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #050505; /* Fondo oscuro de seguridad */
+  overflow: hidden; /* Evita scrolls indeseados durante la transición */
+  color: white;
+  font-family: var(--font-main);
+}

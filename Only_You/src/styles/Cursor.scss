@@ -1,0 +1,178 @@
+/* Capa superior para los cursores personalizados */
+.cursor-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none !important; /* CRUCIAL: Deja pasar los clicks */
+  z-index: 9999; /* Por encima de todo, incluida la tienda */
+  overflow: hidden;
+}
+
+/* Clase que se añade al body cuando usamos un cursor de reemplazo */
+body.hide-native-cursor,
+body.hide-native-cursor * {
+  cursor: none !important;
+}
+
+/* El contenedor que sigue al ratón (usamos transform para rendimiento) */
+.cursor-follower {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* --- CURSOR 1: NEON PULSE (Reemplazo) --- */
+.cursor-neon {
+  position: relative;
+  width: 24px;
+  height: 24px;
+
+  /* FORMA: Diagonal como el dorado */
+  clip-path: polygon(0 0, 30% 100%, 50% 50%, 100% 30%);
+
+  animation: neonColorChange 2s linear infinite;
+
+  transition:
+    transform 0.1s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background 0.2s;
+
+  /* Punto central brillante */
+  &::after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 5px white;
+  }
+
+  &.clicking {
+    transform: scale(0.8);
+  }
+}
+
+@keyframes neonColorChange {
+  0% {
+    background-color: #00ffff;
+    filter: drop-shadow(0 0 5px #00ffff);
+  }
+  25% {
+    background-color: #ff00ff;
+    filter: drop-shadow(0 0 5px #ff00ff);
+  }
+  50% {
+    background-color: #ffff00;
+    filter: drop-shadow(0 0 5px #ffff00);
+  }
+  75% {
+    background-color: #00ff00;
+    filter: drop-shadow(0 0 5px #00ff00);
+  }
+  100% {
+    background-color: #00ffff;
+    filter: drop-shadow(0 0 5px #00ffff);
+  }
+}
+
+/* --- CURSOR 2: GOLD (Nuevo diseño de reemplazo) --- */
+.cursor-gold {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  /* Degradado metálico dorado */
+  background: linear-gradient(135deg, #fff7cc 0%, #ffd700 40%, #b8860b 100%);
+
+  /* FORMA: Puntero clásico afilado (RPG Style) */
+  clip-path: polygon(0 0, 40% 100%, 50% 50%, 100% 40%);
+
+  filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.8));
+  z-index: 10;
+
+  /* Brillo especular */
+  &::after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 6px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    filter: blur(1px);
+  }
+
+  &.clicking {
+    transform: scale(0.8);
+  }
+}
+
+.sparkle-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, #ffd700 20%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: sparkleAnim 0.8s ease-out forwards;
+}
+
+@keyframes sparkleAnim {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0) translateY(15px);
+  }
+}
+
+/* --- CURSOR 3: RING (Anillo) --- */
+.cursor-ring {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 100;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.6));
+
+  &.clicking {
+    transform: scale(0.8);
+  }
+}
+
+/* --- CURSOR 4: BLACK HOLE (Agujero Negro) --- */
+.cursor-blackhole {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #000 40%, #220033 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  /* EFECTO DE DISTORSIÓN */
+  /* Desenfoca lo que hay detrás para simular la distorsión gravitacional */
+  backdrop-filter: blur(4px) contrast(1.2);
+  box-shadow:
+    0 0 15px 2px rgba(0, 0, 0, 0.9),
+    /* Sombra dura */ 0 0 30px 5px rgba(75, 0, 130, 0.4); /* Resplandor violeta del horizonte de sucesos */
+
+  transform: translate(-50%, -50%); /* Centrado exacto */
+  transition: transform 0.1s;
+
+  &.clicking {
+    transform: translate(-50%, -50%) scale(0.8);
+    box-shadow:
+      0 0 5px 2px rgba(0, 0, 0, 1),
+      0 0 50px 10px rgba(75, 0, 130, 0.8); /* Explosión de energía al clickar */
+  }
+}

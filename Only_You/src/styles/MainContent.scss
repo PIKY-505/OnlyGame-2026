@@ -1,0 +1,257 @@
+.main-container {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto; /* Habilitar scroll vertical */
+  overflow-x: hidden;
+  display: flex;
+  justify-content: flex-start; /* Alinear al inicio para que el scroll funcione bien */
+  align-items: center;
+  flex-direction: column; /* Apilar elementos verticalmente */
+  gap: 40px; /* Espacio entre la tarjeta de texto y la galería */
+  
+  /* Padding inteligente para iOS:
+     - Top: 100px base + lo que ocupe el notch
+     - Bottom: 150px base + lo que ocupe la barra de inicio
+     - Lados: 20px base + márgenes seguros
+  */
+  padding: max(100px, env(safe-area-inset-top) + 40px) max(20px, env(safe-area-inset-right)) max(150px, env(safe-area-inset-bottom) + 40px) max(20px, env(safe-area-inset-left));
+  
+  box-sizing: border-box;
+
+  /* Ocultar barra de scroll para estética limpia */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+  /* Animación de entrada suave */
+}
+
+.glass-card {
+  /* TAMAÑO Y POSICIÓN */
+  width: 100%;
+  max-width: 600px; /* Base, pero puede ser anulado por flex */
+  min-height: 400px;
+  /* flex-shrink se maneja en el layout padre ahora si es necesario */
+  padding: 40px;
+
+  /* EFECTO CRISTAL (GLASSMORPHISM) */
+  background: rgba(255, 255, 255, 0.1); /* Blanco muy transparente */
+  backdrop-filter: blur(12px); /* El desenfoque mágico */
+  -webkit-backdrop-filter: blur(12px); /* Para Safari/iPhone */
+
+  /* BORDES Y SOMBRAS */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Borde sutil brillante */
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); /* Sombra suave para dar profundidad */
+
+  /* TEXTO */
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  h1 {
+    font-family: var(
+      --font-main
+    ); /* Tu fuente bonita (Outfit, Playfair, etc) */
+    font-size: 2.5rem;
+    margin: 0;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    opacity: 0.8;
+    font-weight: 300;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+  }
+
+  .content-body {
+    font-size: 1rem;
+    line-height: 1.6;
+    opacity: 0.9;
+
+    p {
+      margin-bottom: 15px;
+    }
+    
+    p {
+      text-align: justify;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- GALERÍA --- */
+.gallery-container {
+  margin-top: 0;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.gallery-track {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: max-content;
+  animation: scrollLeft 60s linear infinite;
+  padding: 30px 0;
+
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
+.gallery-item {
+  height: 220px;
+  width: 150px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.15);
+    border-color: #f700ff;
+    box-shadow: 0 0 25px rgba(247, 0, 255, 0.5);
+    z-index: 10;
+  }
+}
+
+@keyframes scrollLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* --- LAYOUT PRINCIPAL --- */
+.content-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto 30px auto;
+  padding: 0 20px;
+  
+  /* Override para que la tarjeta ocupe el espacio disponible en este layout */
+  .glass-card {
+    flex: 1;
+  }
+}
+
+.layout-spacer {
+  width: 70px;
+  flex-shrink: 0;
+  display: block;
+}
+
+/* --- NAVEGACIÓN CAPÍTULOS --- */
+.chapter-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 60px;
+  height: 700px; /* Permite crecer si hay muchos capítulos */
+  min-height: 400px; /* Mantiene el tamaño mínimo */
+  gap: 2rem; /* Añadimos el espacio aquí */
+  z-index: 20;
+  flex-shrink: 0;
+  padding: 10px 0;
+}
+
+.nav-line-wrapper {
+  position: absolute;
+  top: 30px;
+  bottom: 30px;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.nav-line-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.nav-line-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #f700ff;
+  z-index: 2;
+  transition: height 0.5s ease;
+}
+
+.nav-node {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0; /* IMPORTANTE: Evita que se aplasten a óvalos */
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  transition: all 0.3s ease;
+  font-family: var(--font-main);
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.7);
+  position: relative;
+
+  &:hover {
+    transform: scale(1.1);
+    border-color: #fff;
+  }
+
+  &.active {
+    background: #f700ff;
+    border-color: #fff;
+    color: #fff;
+    box-shadow: 0 0 15px rgba(247, 0, 255, 0.6);
+    transform: scale(1.2);
+  }
+
+  &.completed {
+    background: #bd71ff;
+    border-color: #bd71ff;
+    color: #fff;
+  }
+}
+
+@media (max-width: 900px) {
+  .layout-spacer {
+    display: none;
+  }
+}

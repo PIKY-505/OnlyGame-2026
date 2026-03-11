@@ -1,0 +1,110 @@
+/* --- CONTENEDOR PRINCIPAL --- */
+.dock-outer {
+  margin: 0;
+  display: flex;
+  max-width: 100%;
+  align-items: center;
+  /* Aseguramos que esté fijo y por encima del fondo Galaxy */
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  pointer-events: none; /* Deja pasar clicks a través de las zonas vacías */
+  z-index: 100; /* Prioridad alta */
+}
+
+/* --- EL PANEL (La barra de cristal) --- */
+.dock-panel {
+  /* Tu posicionamiento original que funciona */
+  position: absolute;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  gap: 1rem;
+  padding: 10px 10px 10px; /* Un poco más de aire */
+
+  /* --- ESTILO ARTÍSTICO --- */
+  /* Fondo semi-transparente oscuro */
+  background: rgba(255, 255, 255, 0.1);
+
+  /* Efecto de cristal esmerilado */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  /* Borde sutil brillante */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.2); /* Borde superior más brillante (luz) */
+  border-radius: 1.5rem; /* Más redondeado */
+
+  /* Sombra suave para separarlo del fondo */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+
+  pointer-events: auto; /* Reactivamos clicks */
+}
+
+/* --- LOS ICONOS --- */
+.dock-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; /* Iconos redondos quedan mejor en este estilo */
+
+  /* Fondo muy sutil */
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  outline: none;
+
+  /* Transiciones suaves de color */
+  transition: all 0.2s ease;
+  color: rgba(255, 255, 255, 0.7); /* Icono grisáceo por defecto */
+}
+
+/* Efecto al pasar el ratón por encima del item */
+.dock-item:hover {
+  background-color: rgba(255, 255, 255, 0.15); /* Más brillante */
+  border-color: rgba(247, 0, 255, 0.4); /* Borde rosado neón sutil */
+  color: #fff; /* Icono blanco puro */
+  box-shadow: 0 0 15px rgba(247, 0, 255, 0.3); /* Resplandor rosado */
+}
+
+.dock-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* --- LAS ETIQUETAS (Tooltips) --- */
+.dock-label {
+  position: absolute;
+  top: -3rem; /* Un poco más arriba */
+  left: 50%;
+  width: fit-content;
+  white-space: pre;
+
+  /* Estilo Glassmorphism para la etiqueta también */
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(0, 0, 0, 0.137);
+  backdrop-filter: blur(4px);
+
+  padding: 0.4rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #fff;
+
+  /* Sombra para leer mejor sobre las estrellas */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+
+  transform: translateX(-50%);
+  pointer-events: none;
+}

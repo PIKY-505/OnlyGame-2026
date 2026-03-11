@@ -1,0 +1,20 @@
+{
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true
+  },
+  "files.exclude": {
+    "**/node_modules": true
+  },
+  "[javascript]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit"
+    }
+  },
+  "extensions.ignoreRecommendations": false,
+  "similarity.threshold": 0,
+  "problems.decorations.enabled": false,
+  "editor.gutter.codeLens": false,
+  "security.workspace.trust.untrustedFiles": "open",
+  "editor.defaultFormatter": null
+}
