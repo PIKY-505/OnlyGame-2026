@@ -11,7 +11,7 @@ export const useGameStore = create((set) => ({
   openShop: (shopType) => set({ activeShop: shopType }),
   closeShop: () => set({ activeShop: null }),
 
-  isGameActive: true,
+  isGameActive: false,
   toggleGame: () => set((state) => ({ isGameActive: !state.isGameActive })),
 
   coins: 0,
