@@ -35,28 +35,33 @@ Todo el sistema de memorias e inventario se gestiona íntegramente de la mano de
 Con un claro ADN retrowave/arcade, la lógica simuladora se construye mediante el ecosistema y motor de minijuegos implementado en los propios componentes visuales.
 
 ### Motor del Juego Central (Clicker/Reflejos)
+
 - Consta de una bóveda temporal donde caen de forma procedural monedas en la pantalla (basado en ecuaciones polinómicas de CSS).
 - El jugador debe interceptarlas (clicar o tocar) antes de que crucen el borde inferior de la aplicación.
-- **Factores Multiplicadores Temporales:** Se instaura un medidor de *combos*. Cadena los *hits* incrementa de forma progresiva tanto la puntuación base sumada directamente al registro de fondos del jugador como el nivel de dificultad.
+- **Factores Multiplicadores Temporales:** Se instaura un medidor de _combos_. Cadena los _hits_ incrementa de forma progresiva tanto la puntuación base sumada directamente al registro de fondos del jugador como el nivel de dificultad.
 
 ### Personalización Infinita 🛒
+
 El componente Shop está desacoplado del main loop para evitar bajones de cuadros del juego y ostenta un catálogo robusto de customización:
-- **Catálogo de Visuales Dinámicas:** Reacciona globalmente. Por ejemplo, al comprar la "Piscina de Bolas", la escena de React inyecta *instantly* el canvas 3D sobre la capa raíz.
+
+- **Catálogo de Visuales Dinámicas:** Reacciona globalmente. Por ejemplo, al comprar la "Piscina de Bolas", la escena de React inyecta _instantly_ el canvas 3D sobre la capa raíz.
 - **Logros y Secreciones:** Incluye un motor pasivo rastreador (`AchievementToast`). El cumplimiento de iteraciones (recoger 10.000 monedas) o comprar todo (Coleccionista) destapa cosméticos Ocultos.
 
 ---
 
 ## ⚡ Tubería Avanzada de Gráficos (WebGL)
 
-El pilar visual detrás de "*Only Game*" destina su corazón gráfico gracias a constructos puros imperativos dentro de **Three.js** y representaciones basadas en árbol con **@react-three/fiber** (R3F).
+El pilar visual detrás de "_Only Game_" destina su corazón gráfico gracias a constructos puros imperativos dentro de **Three.js** y representaciones basadas en árbol con **@react-three/fiber** (R3F).
 
 #### Sistema Híbrido de Renderizado `BackgroundController`
-El sistema abstrae las fugas de memoria típicas de navegadores aislando instancias (Geometrías, Shaders y buffers) mediante auto-destrucción controlada si no se portan al inventario en uso. 
+
+El sistema abstrae las fugas de memoria típicas de navegadores aislando instancias (Geometrías, Shaders y buffers) mediante auto-destrucción controlada si no se portan al inventario en uso.
 
 #### Shaders Integrados y Física Visual:
+
 1. **Light Pillars (Geometría Volumétrica):** Fragment Shader personalizado sobre técnicas de Ray Marching. Simula cilindros de luz volumétrica y niebla usando Ruido FBM con fluctuaciones matemáticas armónicas.
 2. **Floating Lines / Seda (Proyección Vectorial):** Shader de dislocación de vértices combinado con ruidos de patrón cruzado ('Domain Warping') simulando físicas de telas bajo factores gravitacionales de aire.
-3. **Ballpit (Física Optimizada de Instanciación):** Utiliza un motor ligero determinista implementado íntegramente en JavaScript puro (Sin librerias como Oimo.js) integrando detección de colisión esférica por medio de *Verlet Velocity*. Permite que cientos de esferas reactivas a la colisión interactúen utilizando la infraestructura de un `InstancedMesh`.
+3. **Ballpit (Física Optimizada de Instanciación):** Utiliza un motor ligero determinista implementado íntegramente en JavaScript puro (Sin librerias como Oimo.js) integrando detección de colisión esférica por medio de _Verlet Velocity_. Permite que cientos de esferas reactivas a la colisión interactúen utilizando la infraestructura de un `InstancedMesh`.
 4. **Snow / Galaxy (GPU Compute Particles):** Puntos primitivos donde las actualizaciones se miden en buffers GL, actualizando billones de posiciones estelares basándose puramente en atracciones polares causadas temporalmente por las coordenadas `(X,Y)` del cursor global.
 
 ---
@@ -64,7 +69,7 @@ El sistema abstrae las fugas de memoria típicas de navegadores aislando instanc
 ## 🖱️ Sistemas de Interacción Menores
 
 - **Cursores Fluidos (`CursorController.jsx`):** Empleo de Spring Hooks de Framer Motion integrados directamente al motor JS (No CSS standard), creando amortiguación física (Inertia Damping) que reempleza el puntero de Windows/Mac.
-- **Rastros (Trails / Mascotas):** Subsistema `TrailSystem` rige una historia interpolada de ubicaciones generada bajo matrices array que se desvanecen independientemente. 
+- **Rastros (Trails / Mascotas):** Subsistema `TrailSystem` rige una historia interpolada de ubicaciones generada bajo matrices array que se desvanecen independientemente.
 - **Sistema Integrado de Sonido Acoplado:** Menú despegable persistente de audio, implementando hooks `isPlaying` de HTML5 `<audio/>` API para manejar ecualizadores reactivos falsos pero de diseño de alta gama.
 
 ---
@@ -89,5 +94,3 @@ src/
 ```
 
 ---
-
-*Compilado y mantenido con ❤ a base de código, café, y matemáticas vectoriales.*
