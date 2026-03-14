@@ -253,21 +253,15 @@ export default function GameOverlay() {
     // Usamos cloneNode() o new Audio() para permitir superposición (polyphony)
     // y evitar que el sonido se corte al hacer clicks rápidos.
     if (entity.type === "shiny") {
-      let soundToPlay = null;
-
-      // 1. Intentamos usar el audio precargado (optimización) si coincide la skin
-      if (!isRandomMode && audioRef.current && entity.skinId === activeCoinSkin) {
-        soundToPlay = audioRef.current.cloneNode();
-      } else {
-        // 2. Si es random o no hay precarga, creamos nueva instancia según la skin de la entidad
-        const skinId = entity.skinId || activeCoinSkin;
-        const skin = SKINS[skinId] || currentSkin;
-        if (skin.sound) soundToPlay = new Audio(skin.sound);
-      }
-
-      if (soundToPlay) {
-        soundToPlay.volume = gameVolume;
-        soundToPlay.play().catch((e) => console.log("Audio play error:", e));
+      const skinId = entity.skinId || activeCoinSkin;
+      const skin = SKINS[skinId] || currentSkin;
+      
+      if (skin && skin.sound) {
+        // En móviles, instanciar new Audio() DIRECTAMENTE en la respuesta al evento (PointerDown)
+        // garantiza que Safari/Chrome NUNCA lo bloqueen por políticas de auto-play.
+        const sfx = new Audio(skin.sound);
+        sfx.volume = gameVolume;
+        sfx.play().catch((e) => console.warn("Audio play error en móvil:", e));
       }
     }
 

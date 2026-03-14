@@ -25,6 +25,7 @@ import AchievementToast from "./components/UI/AchievementToast";
 import { ACHIEVEMENTS_DATA } from "./data/achievements";
 import CursorController from "./components/Layout/CursorController";
 
+
 const shopItems = [
   { id: "backgrounds", label: "Fondos", ariaLabel: "Galería de Fondos" },
   { id: "cursors", label: "Cursores", ariaLabel: "Personalizar Cursor" },
